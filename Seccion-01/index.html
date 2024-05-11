@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Facturación</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Facturación</h1>
+        <form id="facturacionForm">
+            <label for="clienteName">Nombre del Estudiante:</label>
+            <input type="text" id="clienteName" required>
+            <div class="seccionOptions">
+                <label><input type="radio" name="seccion" value="1"> 1ro</label>
+                <label><input type="radio" name="seccion" value="2"> 2do</label>
+                <label><input type="radio" name="seccion" value="3"> 3ro</label>
+                <label><input type="radio" name="seccion" value="4"> 4to</label>
+                <label><input type="radio" name="seccion" value="5"> 5to</label>
+                <label><input type="radio" name="seccion" value="6"> 6to</label>
+            </div>
+            <button type="button" id="facturarBtn">Facturar</button>
+            <button type="button" id="cuadreCajaBtn">Cuadre de Caja</button>
+            <button type="button" id="cuadreSeccionBtn">Cuadre por Sección</button>
+            <button type="button" id="resetBtn">Resetear</button>
+            <button type="button" id="reportesBtn">Reportes</button>
+        </form>
+        <div id="facturaOutput"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
