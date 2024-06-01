@@ -32,7 +32,7 @@ class Producto:
 
     def reducir_existencia(self, cantidad):
         self.existencia -= cantidad
-        
+
 class Carrito:
     def __init__(self):
         self.productos = []
@@ -69,7 +69,7 @@ class Carrito:
 
     def vaciar_carrito(self):
         self.productos = []
-    
+
 class Factura:
     FacturaID = 1
 
@@ -98,6 +98,7 @@ class Factura:
         print("{:<30} {:<20}".format("Total:", self.total))
         print("-" * 50)
 
+
 productos = []
 productos.append(Producto("Arroz", 50, 100, "01"))
 productos.append(Producto("Habichuelas", 60, 50, "01"))
@@ -107,10 +108,10 @@ productos.append(Producto("Pollo", 90, 40, "01"))
 productos.append(Producto("Agua", 20, 200, "00"))
 productos.append(Producto("Coca-Cola", 30, 150, "01"))
 
-facturas=[]
+facturas = []
 
 def imprimir_menu():
-    print("Menú")
+    print("Menú Surtidora ITLA Santiago SRL")
     for producto in productos:
         producto.mostrar_producto()
 
@@ -143,7 +144,18 @@ def facturar():
         seguir = input("¿Deseas agregar más productos? (S/N): ").lower()
         if seguir != 's':
             seguir_facturando = False
-facturar()
 
-for factura in facturas:
-    factura.mostrarFactura()
+    factura = Factura(cliente, carrito)
+    facturas.append(factura)
+    factura.mostrar_factura()
+    carrito.vaciar_carrito()
+    
+os.system('cls')
+
+salir_del_sistema = int(input('Necesita imprimir Una factura: 1. Si / 2. No: '))
+
+while salir_del_sistema == 1:
+    facturar()
+    salir_del_sistema = int(input('Necesita imprimir Otra factura: 1. Si / 2. No: '))
+    os.system('cls')
+
