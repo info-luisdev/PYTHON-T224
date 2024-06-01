@@ -1,24 +1,36 @@
 import os
 
 class Producto:
-    ProductID=1
-    def __init__(self, desc, precio):
-        self.id=Producto.ProductID
-        self.desc=desc
-        self.precio=precio
-        Producto.ProductID+=1
+    ProductID = 1
 
-    def mostrarProducto(self):
-        print("ID: ", self.id, " - Nombre: ",self.desc," - Precio: ",self.precio )
+    def __init__(self, desc, precio, existencia, impuesto):
+        self.id = Producto.ProductID
+        self.desc = desc
+        self.precio = precio
+        self.existencia = existencia
+        self.impuesto = impuesto
+        Producto.ProductID += 1
 
-    def getPrecio(self):
+    def mostrar_producto(self):
+        print(f"ID: {self.id} - Nombre: {self.desc} - Precio: {self.precio} - existencia: {self.existencia} - Impuesto: {self.impuesto}")
+
+    def get_precio(self):
         return self.precio
-    
-    def getID(self):
+
+    def get_id(self):
         return self.id
-    
-    def getDesc(self):
+
+    def get_desc(self):
         return self.desc
+
+    def get_impuesto(self):
+        return self.impuesto
+
+    def get_existencia(self):
+        return self.existencia
+
+    def reducir_existencia(self, cantidad):
+        self.existencia -= cantidad
     
 class Factura:
     FacturaID=1
@@ -37,10 +49,14 @@ class Factura:
         Factura.imprimirProductos()
         print("\n")
 
-productos=[]
-productos.append(Producto("Arroz",50))
-productos.append(Producto("Habichuelas",80))
-productos.append(Producto("Pollo",85))
+productos = []
+productos.append(Producto("Arroz", 50, 100, "01"))
+productos.append(Producto("Habichuelas", 60, 50, "01"))
+productos.append(Producto("Aceite", 300, 30, "02"))
+productos.append(Producto("Lechuga", 80, 75, "00"))
+productos.append(Producto("Pollo", 90, 40, "01"))
+productos.append(Producto("Agua", 20, 200, "00"))
+productos.append(Producto("Coca-Cola", 30, 150, "01"))
 
 facturas=[]
 
