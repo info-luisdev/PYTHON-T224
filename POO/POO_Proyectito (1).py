@@ -31,6 +31,43 @@ class Producto:
 
     def reducir_existencia(self, cantidad):
         self.existencia -= cantidad
+        
+class Carrito:
+    def __init__(self):
+        self.productos = []
+
+    def agregar_producto(self, producto, cantidad):
+        encontrado = False
+        for item in self.productos:
+            if item['producto'].get_id() == producto.get_id():
+                item['cantidad'] += cantidad
+                encontrado = True
+                break
+        if not encontrado:
+            self.productos.append({'producto': producto, 'cantidad': cantidad})
+
+    def mostrar_carrito(self):
+        for item in self.productos:
+            producto = item['producto']
+            cantidad = item['cantidad']
+            total_producto = producto.get_precio() * cantidad
+            print(f"ID: {producto.get_id()} - Nombre: {producto.get_desc()} - Precio: {producto.get_precio()} - Cantidad: {cantidad} - Total: {total_producto}")
+
+    def calcular_total(self):
+        subtotal = 0
+        impuestos = 0
+        for item in self.productos:
+            precio_total = item['producto'].get_precio() * item['cantidad']
+            subtotal += precio_total
+            if item['producto'].get_impuesto() == "01":
+                impuestos += precio_total * 0.18
+            elif item['producto'].get_impuesto() == "02":
+                impuestos += precio_total * 0.16
+        total = subtotal + impuestos
+        return subtotal, impuestos, total
+
+    def vaciar_carrito(self):
+        self.productos = []
     
 class Factura:
     FacturaID=1
