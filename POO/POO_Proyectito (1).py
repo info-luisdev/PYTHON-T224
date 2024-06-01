@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 class Producto:
     ProductID = 1
@@ -70,21 +71,32 @@ class Carrito:
         self.productos = []
     
 class Factura:
-    FacturaID=1
-    def __init__(self, monto_impuestos, total, productos):
-        self.id=Factura.FacturaID
-        self.monto_impuestos=monto_impuestos
-        self.total=total
-        self.productos=productos
-        
-    def imprimirProductos():
-        for producto in productos:
-            producto.mostrarProducto()
+    FacturaID = 1
 
-    def mostrarFactura(self):
-        print("ID: ", self.id, " - Impuestos: ", self.monto_impuestos, " - Total: ", self.total)
-        Factura.imprimirProductos()
-        print("\n")
+    def __init__(self, cliente, carrito):
+        self.id = Factura.FacturaID
+        self.fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.cliente = cliente
+        self.carrito = carrito
+        self.subtotal, self.monto_impuestos, self.total = carrito.calcular_total()
+        Factura.FacturaID += 1
+
+    def mostrar_factura(self):
+        print(f"Factura ID: {self.id}")
+        print(f"Cliente: {self.cliente}")
+        print(f"Fecha: {self.fecha}")
+        print("-" * 50)
+        print("{:<5} {:<15} {:<10} {:<10} {:<10}".format("ID", "Descripción", "Precio", "Cantidad", "Total"))
+        for item in self.carrito.productos:
+            producto = item['producto']
+            cantidad = item['cantidad']
+            total_producto = producto.get_precio() * cantidad
+            print("{:<5} {:<15} {:<10} {:<10} {:<10}".format(producto.get_id(), producto.get_desc(), producto.get_precio(), cantidad, total_producto))
+        print("-" * 50)
+        print("{:<30} {:<20}".format("Subtotal:", self.subtotal))
+        print("{:<30} {:<20}".format("Impuestos:", self.monto_impuestos))
+        print("{:<30} {:<20}".format("Total:", self.total))
+        print("-" * 50)
 
 productos = []
 productos.append(Producto("Arroz", 50, 100, "01"))
@@ -97,43 +109,40 @@ productos.append(Producto("Coca-Cola", 30, 150, "01"))
 
 facturas=[]
 
-def imprimirMenu():
+def imprimir_menu():
     print("Menú")
     for producto in productos:
-        producto.mostrarProducto()
+        producto.mostrar_producto()
 
 def buscar_producto(id):
     for producto in productos:
-        if(producto.id==id):
+        if producto.get_id() == id:
             return producto
     return None
 
-def calcular_factura(carrito):
-    total=0
-    for producto in carrito:
-        total+=producto.getPrecio()
-    impuestos=total*0.18
-    return impuestos, total
-
 def facturar():
-    seguir_facturando=1
-    while seguir_facturando==1:
-        carrito=[]
-        salir_o_no=1
-        while salir_o_no==1:
-            os.system("cls")
-            imprimirMenu()
-            opc=int(input("Ingresa el índice del producto que deseas: "))
-            productoTemp=buscar_producto(opc)
-            if (productoTemp):
-                carrito.append(productoTemp)
-            else:
-                print("El producto no existe")
-            salir_o_no=int(input("Deseas agregar más productos? 1. Sí 2. No: "))
-        impuestos, total = calcular_factura(carrito)
-        facturas.append(Factura(impuestos, total, carrito))
-        seguir_facturando=int(input("Deseas seguir facturando? 1. Sí 2. No: "))
+    cliente = input("Ingrese el nombre del cliente: ")
+    carrito = Carrito()
+    seguir_facturando = True
 
+    while seguir_facturando:
+        os.system("cls")
+        imprimir_menu()
+        opc = int(input("Ingresa el índice del producto que deseas: "))
+        producto = buscar_producto(opc)
+        if producto:
+            cantidad = int(input(f"Ingrese la cantidad de {producto.get_desc()} que desea (existencia disponible: {producto.get_existencia()}): "))
+            if cantidad > 0 and cantidad <= producto.get_existencia():
+                carrito.agregar_producto(producto, cantidad)
+                producto.reducir_existencia(cantidad)
+            else:
+                print("Cantidad inválida o insuficiente existencia.")
+        else:
+            print("Producto no encontrado.")
+        
+        seguir = input("¿Deseas agregar más productos? (S/N): ").lower()
+        if seguir != 's':
+            seguir_facturando = False
 facturar()
 
 for factura in facturas:
