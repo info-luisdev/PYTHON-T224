@@ -42,5 +42,14 @@ class Reservaciones:
         except FileNotFoundError:
             self.reservas = []
 
+    def guardar_reservas(self):
+        datos = [reserva.reserva_json() for reserva in self.reservas]
+        with open("reservas.json", "w") as archivo:
+            json.dump(datos, archivo, indent=4)
 
-
+    def mostrar_menu(self):
+        print("\nMenú de Reservaciones Restaurante el Coco:")
+        print("1. Añadir Reserva")
+        print("2. Visualizar Reservas Activas")
+        print("3. Anular Reserva ")
+        print("4. Salir del Programa")
