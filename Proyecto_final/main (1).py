@@ -53,3 +53,80 @@ class Reservaciones:
         print("2. Visualizar Reservas Activas")
         print("3. Anular Reserva ")
         print("4. Salir del Programa")
+
+    def añadir_reserva(self):
+        nombre_cliente = input("Ingrese el nombre del cliente: ")
+        numero_personas = int(input("Ingrese el número de personas: "))
+        fecha = input("Ingrese la fecha de la reserva (DD/MM/YYYY): ")
+
+        if numero_personas <= 0:
+            print("El número de personas debe ser mayor que cero.")
+            return
+        
+        if not self.mesas_disponibles:
+            print("No hay mesas disponibles.")
+            return
+
+        print(f"Mesas disponibles: {self.mesas_disponibles}")
+        mesa = int(input("Seleccione una mesa de las disponibles: "))
+
+        if mesa not in self.mesas_disponibles:
+            print("Mesa no disponible.")
+            return
+
+        cliente = Cliente(nombre_cliente)
+        nueva_reserva = Reserva(self.id_reserva, cliente, numero_personas, fecha, mesa)
+        self.reservas.append(nueva_reserva)
+        self.mesas_disponibles.remove(mesa)
+        self.id_reserva += 1
+        print(f"Reserva creada exitosamente para {nombre_cliente} en la mesa {mesa} el {fecha}.")
+        self.guardar_reservas()
+
+    def presentar_reservas(self):
+        if not self.reservas:
+            print("No hay reservas registradas.")
+        else:
+            print("\nListado de reservas:")
+            for reserva in self.reservas:
+                print(f"ID: {reserva.id}, Cliente: {reserva.cliente.nombre}, Personas: {reserva.numero_personas}, Fecha: {reserva.fecha}, Mesa: {reserva.mesa}")
+
+    def anular_reserva(self):
+        if not self.reservas:
+            print("No hay reservas registradas.")
+            return
+
+        id_reserva = int(input("Ingrese el ID de la reserva a cancelar: "))
+        reserva_encontrada = None
+        for reserva in self.reservas:
+            if reserva.id == id_reserva:
+                reserva_encontrada = reserva
+                break
+
+        if reserva_encontrada:
+            self.reservas.remove(reserva_encontrada)
+            self.mesas_disponibles.append(reserva_encontrada.mesa)
+            print(f"Reserva con ID {id_reserva} cancelada.")
+            self.añadir_reserva()
+        else:
+            print(f"Reserva con ID {id_reserva} no encontrada.")
+
+    def main(self):
+        while True:
+            self.mostrar_menu()
+            opcion = input("Ingrese su opción: ")
+
+            if opcion == "1":
+                self.añadir_reserva()
+            elif opcion == "2":
+                self.presentar_reservas()
+            elif opcion == "3":
+                self.anular_reserva()
+            elif opcion == "4":
+                print("Sistema Cerrado")
+                break
+            else:
+                print("Opción inválida. Intente nuevamente.")
+
+if __name__ == "__main__":
+    agendar_reserva = Reservaciones()
+    agendar_reserva.main()

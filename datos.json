@@ -1,0 +1,76 @@
+{
+  "cines": [
+    {
+      "id": "1",
+      "nombre": "Juan Pablo Duarte",
+      "cantidad_salas": 50,
+      "provincia": "Distrito Nacional",
+      "boletas_vendidas": 50
+    },
+    {
+      "id": "2",
+      "nombre": " Cine Juan Bosch",
+      "cantidad_salas": 50,
+      "provincia": "Santiago",
+      "boletas_vendidas": 200
+    },
+    {
+      "id": "3",
+      "nombre": " Cine Gregorio Luperón",
+      "cantidad_salas": 50,
+      "provincia": "Puerto Plata",
+      "boletas_vendidas": 50
+    },
+    {
+      "id": "4",
+      "nombre": " Cine Ramón Matías Mella",
+      "cantidad_salas": 50,
+      "provincia": "La Vega",
+      "boletas_vendidas": 50
+    }
+  ],
+  "peliculas": [
+    {
+      "id": "1",
+      "nombre": "Herencia Siniestra",
+      "genero": "Terror",
+      "duracion": 120
+    },
+    {
+      "id": "2",
+      "nombre": "Bad Boys: Hasta la Muerte",
+      "genero": "Accion",
+      "duracion": 115
+    },
+    {
+      "id": "3",
+      "nombre": "Capitán Avispa",
+      "genero": "Accion",
+      "duracion": 110
+    },
+    {
+      "id": "4",
+      "nombre": "Guadalupe Madre de la Humanidad",
+      "genero": "Comedia",
+      "duracion": 105
+    },
+    {
+      "id": "5",
+      "nombre": "Complices del Engaño",
+      "genero": "Comedia",
+      "duracion": 100
+    },
+    {
+      "id": "6",
+      "nombre": "Intensa-Mente 2",
+      "genero": "Accion",
+      "duracion": 130
+    },
+    {
+      "id": "7",
+      "nombre": "La Familia",
+      "genero": "Terror",
+      "duracion": 120
+    }
+  ]
+}

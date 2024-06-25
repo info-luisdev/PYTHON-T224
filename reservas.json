@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "nombre_cliente": "Luis",
+        "numero_personas": 5,
+        "fecha": "20/1/2024",
+        "mesa": 1
+    },
+    {
+        "id": 2,
+        "nombre_cliente": "Adrian",
+        "numero_personas": 2,
+        "fecha": "10/1/2024",
+        "mesa": 3
+    }
+]
